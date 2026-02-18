@@ -11,8 +11,8 @@ const app = express()
 const startServer = async () => {
   await connectDB()
   app.use(cors({
-    origin:config.React_URI,
-    methods:['GET','POST','PUT','DELETE'],
+    origin: config.React_URI,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }))
   // app.use(cors({}))
   app.use(express.json())
@@ -22,7 +22,7 @@ const startServer = async () => {
 
 
 
-  app.post('/login',async (req, res) => {
+  app.post('/login', async (req, res) => {
     try {
 
       const user = await getLoginUser(req.body.email, req.body.password)
@@ -51,9 +51,11 @@ const startServer = async () => {
 
   })
 
-  app.listen(config.port, () => {
-    console.log(`Example app listening on port http://localhost:${config.port}`)
-  })
+  const PORT = process.env.PORT || config.port || 3000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
 
 startServer()
